@@ -102,14 +102,6 @@ class Bee():
 
         if self.img_count < self.ANIMATION_TIME:
             self.img = self.BEE
-        elif self.img_count < self.ANIMATION_TIME*2:
-            self.img = self.BEE
-        elif self.img_count < self.ANIMATION_TIME*3:
-            self.img = self.BEE
-        elif self.img_count < self.ANIMATION_TIME*4:
-            self.img = self.BEE
-        elif self.img_count < self.ANIMATION_TIME*4 + 1:
-            self.img = self.BEE
             self.img_count = 0
 
         rotated_image = pygame.transform.rotate(self.img, self.tilt)

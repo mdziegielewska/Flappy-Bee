@@ -3,8 +3,7 @@ import random
 import os
 import time
 import sys
-import math
-from datetime import datetime
+
 
 pygame.init()
 clock = pygame.time.Clock()
@@ -134,13 +133,12 @@ class Bee:
         new_rect = rotated_image.get_rect(center=self.img.get_rect(topleft=(self.x, self.y)).center)
         screen.blit(rotated_image, new_rect.topleft)
         self.hitbox = (self.x + 220, self.y + 220, 55, 55)
-        pygame.draw.rect(screen, (255, 0, 0), self.hitbox, 2)
+        # pygame.draw.rect(screen, (255, 0, 0), self.hitbox, 2)
 
     def hit(self):
         screen.fill(Black)
         przegrana("haha you lost", 40, 100, 70)
-        time.sleep(3)
-        main()
+        time.sleep(2)
 
 
 class Ground:
@@ -203,8 +201,9 @@ class Trunk:
         screen.blit(self.BOTTOMTRUNK, (self.x, self.bottom))
         self.hitboxtop = (self.x + 80, self.top, 80, 490)
         self.hitboxbottom = (self.x + 80, self.bottom + 10, 80, 490)
-        pygame.draw.rect(screen, (255, 0, 0), self.hitboxtop, 2)
-        pygame.draw.rect(screen, (255, 0, 0), self.hitboxbottom, 2)
+        # pygame.draw.rect(screen, (255, 0, 0), self.hitboxtop, 2)
+        # pygame.draw.rect(screen, (255, 0, 0), self.hitboxbottom, 2)
+
 
 
 def hit():
@@ -278,11 +277,13 @@ def main():
             trunk.move()
 
             if trunk.hitboxtop[1] < bee.hitbox[1] < trunk.hitboxtop[1] + trunk.hitboxtop[3]:
-                if trunk.hitboxtop[0] - bee.hitbox[0] < bee.hitbox[2]:
-                    bee.hit()
+                if bee.hitbox[0] + bee.hitbox[2] < trunk.hitboxtop[0] + trunk.hitboxtop[2]:
+                    if trunk.hitboxtop[0] - bee.hitbox[0] < bee.hitbox[2]:
+                        bee.hit()
             if trunk.hitboxbottom[1] < bee.hitbox[1] < trunk.hitboxbottom[1] + trunk.hitboxbottom[3]:
-                if trunk.hitboxbottom[0] - bee.hitbox[0] < bee.hitbox[2]:
-                    bee.hit()
+                if bee.hitbox[0] + bee.hitbox[2] < trunk.hitboxbottom[0] + trunk.hitboxbottom[2]:
+                    if trunk.hitboxbottom[0] - bee.hitbox[0] < bee.hitbox[2]:
+                        bee.hit()
 
             if trunk.hitboxtop[0] < bee.hitbox[0] < trunk.hitboxtop[0] + trunk.hitboxtop[2]:
                 if bee.hitbox[1] - trunk.hitboxtop[1] < trunk.hitboxtop[3]:
@@ -323,13 +324,13 @@ def main():
 
         for honey in honeys:
             if honey.hitbox[1] < bee.hitbox[1] < honey.hitbox[1] + honey.hitbox[3]:
-                if honey.hitbox[0] - bee.hitbox[0] < bee.hitbox[2]:
+                if honey.hitbox[0] < bee.hitbox[0] < honey.hitbox[0] + honey.hitbox[2]:
                     hit()
 
             if honey.hitbox[0] < bee.hitbox[0] < honey.hitbox[0] + honey.hitbox[2]:
                 if honey.hitbox[1] < bee.hitbox[1] < honey.hitbox[1] + honey.hitbox[3]:
                     hit()
-                if honey.hitbox[1] < bee.hitbox[3] < honey.hitbox[1] + honey.hitbox[3]:
+                if honey.hitbox[1] < bee.hitbox[1] + bee.hitbox[3] < honey.hitbox[1] + honey.hitbox[3]:
                     hit()
 
         pygame.display.update()

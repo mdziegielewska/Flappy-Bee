@@ -7,6 +7,7 @@ import pygame.surface
 
 pygame.init()
 pygame.font.init()
+pygame.mixer.init()
 
 clock = pygame.time.Clock()
 
@@ -33,6 +34,13 @@ END2 = pygame.transform.scale(pygame.image.load(os.path.join("imgs", "endbee2.pn
 SCOREFONT = pygame.font.SysFont("comicsans", 30)
 BONUSFONT = pygame.font.SysFont("comicsans", 30)
 ENDFONT = pygame.font.SysFont("Times New Roman", 40)
+
+BUZZ = pygame.mixer.Sound('beebonus.wav')
+BUZZ.set_volume(0.2)
+FOREST = pygame.mixer.Sound('forest.wav')
+FOREST.set_volume(0.2)
+PUNCH = pygame.mixer.Sound('punch.wav')
+PUNCH.set_volume(0.2)
 
 
 def title(txt, x, y, size):
@@ -162,6 +170,7 @@ class Bee:
                     quit()
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_1:
+                        FOREST.play(-1)
                         main()
                     if event.key == pygame.K_3:
                         sys.exit()
@@ -306,17 +315,25 @@ def main():
             if trunk.hitboxtop[1] < bee.hitbox[1] < trunk.hitboxtop[1] + trunk.hitboxtop[3]:
                 if bee.hitbox[0] + bee.hitbox[2] < trunk.hitboxtop[0] + trunk.hitboxtop[2]:
                     if trunk.hitboxtop[0] - bee.hitbox[0] < bee.hitbox[2]:
+                        FOREST.stop()
+                        PUNCH.play()
                         bee.hit(score)
             if trunk.hitboxbottom[1] < bee.hitbox[1] < trunk.hitboxbottom[1] + trunk.hitboxbottom[3]:
                 if bee.hitbox[0] + bee.hitbox[2] < trunk.hitboxbottom[0] + trunk.hitboxbottom[2]:
                     if trunk.hitboxbottom[0] - bee.hitbox[0] < bee.hitbox[2]:
+                        FOREST.stop()
+                        PUNCH.play()
                         bee.hit(score)
 
             if trunk.hitboxtop[0] < bee.hitbox[0] < trunk.hitboxtop[0] + trunk.hitboxtop[2]:
                 if bee.hitbox[1] - trunk.hitboxtop[1] < trunk.hitboxtop[3]:
+                    FOREST.stop()
+                    PUNCH.play()
                     bee.hit(score)
             if trunk.hitboxbottom[0] < bee.hitbox[0] < trunk.hitboxbottom[0] + trunk.hitboxbottom[2]:
                 if trunk.hitboxbottom[1] - bee.hitbox[1] < bee.hitbox[3]:
+                    FOREST.stop()
+                    PUNCH.play()
                     bee.hit(score)
 
         if add_trunk:
@@ -330,8 +347,12 @@ def main():
         bee.move()
 
         if ground.hitbox1[1] - (bee.hitbox[1] + bee.hitbox[3]) < 0:
+            FOREST.stop()
+            PUNCH.play()
             bee.hit(score)
         if ground.hitbox2[1] - (bee.hitbox[1] + bee.hitbox[3]) < 0:
+            FOREST.stop()
+            PUNCH.play()
             bee.hit(score)
 
         add_bonus = False
@@ -347,15 +368,18 @@ def main():
 
             if honey.hitbox[1] < bee.hitbox[1] < honey.hitbox[1] + honey.hitbox[3]:
                 if honey.hitbox[0] < bee.hitbox[0] < honey.hitbox[0] + honey.hitbox[2]:
+                    BUZZ.play()
                     honeys.remove(honey)
                     hit_honey = True
 
             elif honey.hitbox[0] < bee.hitbox[0] < honey.hitbox[0] + honey.hitbox[2]:
                 if honey.hitbox[1] < bee.hitbox[1] < honey.hitbox[1] + honey.hitbox[3]:
+                    BUZZ.play()
                     honeys.remove(honey)
                     hit_honey = True
 
                 if honey.hitbox[1] < bee.hitbox[1] + bee.hitbox[3] < honey.hitbox[1] + honey.hitbox[3]:
+                    BUZZ.play()
                     honeys.remove(honey)
                     hit_honey = True
                     if honey.x < bee.x:
@@ -387,6 +411,7 @@ def start():
                 quit()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_1:
+                    FOREST.play(-1)
                     main()
                 if event.key == pygame.K_2:
                     sys.exit()

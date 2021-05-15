@@ -1,9 +1,0 @@
-import pygame
-# do gier
-import random
-# aby generowac losowe ustawienie przeszkod i bonusow
-import os
-# aby dodac grafike
-import time
-# do okreslania czasu miedzy pojawiajacymi sie kolejnymi przeszkodami, nadawanie szybkosci 
-import neat

@@ -1,9 +1,16 @@
-<b>PL</b><br>
-Moja pierwsza styczność z Pythonem i większym projektem programistycznym. 
-Jest to gra komputerowa w 2D, wykorzystująca moduł Pygame. Inspiracją do jej powstania była niedostępna już aplikacja "Flappy Bird".
-Projekt został stworzony na potrzeby zaliczenia przedmiotu Proceduralne Języki Programowania 2.
+## Flappy Bee
 
-<b>ENG</b><br>
-My first contact with Python and a larger programming project.
-It's a 2D computer game using the Pygame module. The inspiration for its creation is the no longer available "Flappy Bird" application.
-The project was created for the purpose of completing the course - Procedural Programming Languages 2.
+### Project Overview
+
+This repository contains the source code for a Python-based Flappy Bird clone built using the Pygame library. The game involves controlling a bird to fly through gaps in a series of pipes without colliding. This project serves as a learning exercise in game development and was created for the Procedural Programming Languages 2 course.
+
+
+### Key Features
+- Basic game mechanics (gravity, bird control, pipe generation)
+- Game over conditions and scoring system
+- Simple graphics and sound effects
+
+
+### Technologies Used
+- Python
+- Pygame
